@@ -127,7 +127,7 @@ const Index = () => {
               <BonusCard 
                 icon={<Baby className="h-5 w-5" />}
                 title="ELI5"
-                description='Ask it to "Explain Like I'm 5/10/PhD" based on audience level.'
+                description="Ask it to &quot;Explain Like I&apos;m 5/10/PhD&quot; based on audience level."
               />
               <BonusCard 
                 icon={<Search className="h-5 w-5" />}
