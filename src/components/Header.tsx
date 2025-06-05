@@ -18,12 +18,20 @@ const Header = () => {
             </div>
           </Link>
           
-          <Link 
-            to="/prompts/1" 
-            className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-colors"
-          >
-            View Prompts
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link 
+              to="/tools" 
+              className="text-muted-foreground hover:text-primary transition-colors"
+            >
+              AI Tools
+            </Link>
+            <Link 
+              to="/prompts/1" 
+              className="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md transition-colors"
+            >
+              View Prompts
+            </Link>
+          </div>
         </div>
       </div>
     </header>
