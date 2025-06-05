@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -17,7 +18,7 @@ const ToolsPage = () => {
     {
       step: "1",
       title: "Brief",
-      icon: <FileText className="h-6 w-6" />,
+      icon: <FileText className="h-8 w-8" />,
       description: "Define research objectives and scope",
       tools: [
         {
@@ -33,7 +34,7 @@ const ToolsPage = () => {
     {
       step: "2",
       title: "Proposal",
-      icon: <Presentation className="h-6 w-6" />,
+      icon: <Presentation className="h-8 w-8" />,
       description: "Create comprehensive research proposals",
       tools: [
         {
@@ -57,7 +58,7 @@ const ToolsPage = () => {
     {
       step: "3",
       title: "Recruitment",
-      icon: <Users className="h-6 w-6" />,
+      icon: <Users className="h-8 w-8" />,
       description: "Find and recruit research participants",
       tools: [
         {
@@ -69,7 +70,7 @@ const ToolsPage = () => {
     {
       step: "4",
       title: "Discussion Guide",
-      icon: <MessageCircle className="h-6 w-6" />,
+      icon: <MessageCircle className="h-8 w-8" />,
       description: "Design effective interview guides",
       tools: [
         {
@@ -81,7 +82,7 @@ const ToolsPage = () => {
     {
       step: "5",
       title: "Transcription",
-      icon: <Mic className="h-6 w-6" />,
+      icon: <Mic className="h-8 w-8" />,
       description: "Convert audio to text with AI assistance",
       tools: [
         {
@@ -97,7 +98,7 @@ const ToolsPage = () => {
     {
       step: "6",
       title: "Sensemaking / Brainstorming",
-      icon: <Lightbulb className="h-6 w-6" />,
+      icon: <Lightbulb className="h-8 w-8" />,
       description: "Analyze data and generate insights",
       tools: [
         {
@@ -117,7 +118,7 @@ const ToolsPage = () => {
     {
       step: "7",
       title: "Presentation",
-      icon: <Monitor className="h-6 w-6" />,
+      icon: <Monitor className="h-8 w-8" />,
       description: "Create compelling research presentations",
       tools: [
         {
@@ -146,27 +147,30 @@ const ToolsPage = () => {
       
       <main className="flex-1 pt-20">
         {/* Hero Section */}
-        <div className="quantum-gradient-bg text-white py-20">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              AI Tools for Qualitative Research
+        <div className="bg-gradient-to-r from-[#1e40af] to-[#7c3aed] text-white py-24">
+          <div className="container mx-auto px-6 text-center">
+            <h1 className="text-5xl md:text-7xl font-bold mb-8">
+              AI Tools for Research
             </h1>
-            <p className="text-xl md:text-2xl opacity-90 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl opacity-90 mb-8 max-w-4xl mx-auto leading-relaxed">
               A curated collection of AI-powered tools mapped to each step of the qualitative research lifecycle
             </p>
+            <div className="w-24 h-1 bg-white/30 mx-auto rounded-full"></div>
           </div>
         </div>
 
         {/* Tools Section */}
-        <div className="container mx-auto px-4 py-20 max-w-6xl">
+        <div className="container mx-auto px-6 py-20 max-w-7xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Research Lifecycle Tools</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-[#1e40af] to-[#7c3aed] bg-clip-text text-transparent">
+              Research Lifecycle Tools
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Discover the best AI tools for each stage of your qualitative research process
             </p>
           </div>
 
-          <div className="space-y-8">
+          <div className="grid gap-8 md:gap-12">
             {researchSteps.map((step, index) => (
               <ToolStepCard 
                 key={step.step}

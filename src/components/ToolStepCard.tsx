@@ -25,38 +25,37 @@ const ToolStepCard: React.FC<ToolStepCardProps> = ({
   isEven 
 }) => {
   return (
-    <div className={`flex flex-col lg:flex-row items-center gap-8 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-      {/* Step Info */}
-      <div className="lg:w-1/3 text-center lg:text-left">
-        <div className="flex items-center justify-center lg:justify-start gap-4 mb-4">
-          <div className="prompt-number flex-shrink-0">
-            {step}
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
+      {/* Header Section */}
+      <div className="bg-gradient-to-r from-[#1e40af] to-[#7c3aed] text-white p-8">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center justify-center h-14 w-14 rounded-full bg-white/20 backdrop-blur-sm">
+            <span className="text-2xl font-bold">{step}</span>
           </div>
-          <div className="text-primary">
+          <div className="text-white/90">
             {icon}
           </div>
         </div>
         <h3 className="text-2xl font-bold mb-2">{title}</h3>
-        <p className="text-muted-foreground">{description}</p>
+        <p className="text-white/90 text-lg">{description}</p>
       </div>
 
-      {/* Tools Grid */}
-      <div className="lg:w-2/3">
-        <div className="grid sm:grid-cols-2 gap-4">
+      {/* Tools Section */}
+      <div className="p-8">
+        <h4 className="text-lg font-semibold text-gray-900 mb-6">Recommended Tools</h4>
+        <div className="grid gap-4">
           {tools.map((tool, index) => (
             <a
               key={index}
               href={tool.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group bg-white rounded-lg border border-secondary/20 p-6 hover:shadow-lg hover:border-primary/30 transition-all hover:-translate-y-1"
+              className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gradient-to-r hover:from-[#1e40af]/5 hover:to-[#7c3aed]/5 rounded-xl border border-gray-200 hover:border-[#1e40af]/30 transition-all duration-200"
             >
-              <div className="flex items-center justify-between">
-                <h4 className="font-semibold text-lg group-hover:text-primary transition-colors">
-                  {tool.name}
-                </h4>
-                <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-              </div>
+              <span className="font-medium text-gray-900 group-hover:text-[#1e40af] transition-colors">
+                {tool.name}
+              </span>
+              <ExternalLink className="h-5 w-5 text-gray-400 group-hover:text-[#1e40af] transition-colors" />
             </a>
           ))}
         </div>
