@@ -1,11 +1,10 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ToolStepCard from '@/components/ToolStepCard';
 import { 
   FileText, 
-  PresentationChart, 
+  Presentation, 
   Users, 
   MessageCircle, 
   Mic, 
@@ -34,7 +33,7 @@ const ToolsPage = () => {
     {
       step: "2",
       title: "Proposal",
-      icon: <PresentationChart className="h-6 w-6" />,
+      icon: <Presentation className="h-6 w-6" />,
       description: "Create comprehensive research proposals",
       tools: [
         {
