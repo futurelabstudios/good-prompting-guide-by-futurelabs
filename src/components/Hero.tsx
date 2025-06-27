@@ -16,14 +16,27 @@ const Hero = () => {
           </div>
           
           {/* Main Title */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 text-balance">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 text-balance">
             Master Prompt Engineering
           </h1>
           
           {/* Subtitle */}
-          <p className="text-xl md:text-2xl text-gray-600 mb-12 text-balance max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-600 mb-8 text-balance max-w-3xl mx-auto">
             Learn to communicate with AI effectively through clear, structured prompts. 
             No jargon, just practical techniques that work.
+          </p>
+
+          {/* Futurelab Studios mention */}
+          <p className="text-sm text-gray-500 mb-8">
+            Created by{' '}
+            <a 
+              href="https://futurelabstudios.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-gray-900 hover:text-gray-700 font-medium transition-colors underline"
+            >
+              Futurelab Studios
+            </a>
           </p>
           
           {/* CTA Buttons */}
