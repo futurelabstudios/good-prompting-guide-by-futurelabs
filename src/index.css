@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -223,3 +222,58 @@ html {
   animation: matrix-rain 10s linear infinite;
 }
 
+/* Mobile-first responsive utilities */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Better mobile touch targets */
+@media (max-width: 768px) {
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Improved mobile scrolling */
+@media (max-width: 768px) {
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+}
+
+/* Mobile-optimized text selection */
+@media (max-width: 768px) {
+  code {
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Enhanced mobile animations */
+@media (max-width: 768px) {
+  .glitch:active {
+    animation: none;
+    transform: scale(0.95);
+  }
+  
+  /* Reduce motion for mobile users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    .glitch,
+    .float,
+    .tech-pulse,
+    .neon-border {
+      animation: none;
+    }
+    
+    .hover-scale:hover {
+      transform: none;
+    }
+  }
+}

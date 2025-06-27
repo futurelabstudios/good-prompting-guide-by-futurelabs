@@ -60,75 +60,75 @@ const PromptCard: React.FC<PromptCardProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-6">
+    <div className="min-h-screen bg-gray-50 py-4 px-3 sm:py-8 sm:px-6 pb-32 sm:pb-24">
       <div className="container mx-auto max-w-4xl">
-        <Card className="bg-white shadow-sm border-0">
-          {/* Header */}
-          <div className="bg-gray-900 text-white p-8">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center text-lg font-bold">
+        <Card className="bg-white shadow-sm border-0 overflow-hidden">
+          {/* Header - Mobile optimized */}
+          <div className="bg-gray-900 text-white p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-4 sm:mb-6">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center text-base sm:text-lg font-bold">
                   {number}
                 </div>
-                <div className="text-white/80">
+                <div className="text-white/80 text-xl sm:text-2xl">
                   {icon}
                 </div>
               </div>
               
-              <div className="text-right">
-                <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(difficulty)} bg-white`}>
+              <div className="self-start sm:self-auto">
+                <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${getDifficultyColor(difficulty)} bg-white`}>
                   {difficulty}
                 </div>
               </div>
             </div>
             
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">{title}</h1>
-            <p className="text-xl text-white/90 leading-relaxed">{description}</p>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4 leading-tight">{title}</h1>
+            <p className="text-lg sm:text-xl text-white/90 leading-relaxed">{description}</p>
           </div>
 
-          <CardContent className="p-8 space-y-8">
-            {/* Examples Section */}
+          <CardContent className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+            {/* Examples Section - Mobile first layout */}
             <div>
-              <h2 className="text-2xl font-bold mb-6 text-gray-900">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900">
                 See the Difference
               </h2>
               
-              <div className="grid lg:grid-cols-2 gap-6">
+              <div className="space-y-4 sm:space-y-6 lg:grid lg:grid-cols-2 lg:gap-6 lg:space-y-0">
                 {/* Bad Example */}
-                <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-                      <X className="h-4 w-4 text-white" />
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 sm:p-6">
+                  <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 bg-red-500 rounded-full flex items-center justify-center">
+                      <X className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
                     </div>
-                    <h3 className="font-semibold text-red-800">Ineffective Approach</h3>
+                    <h3 className="font-semibold text-red-800 text-sm sm:text-base">Ineffective Approach</h3>
                   </div>
-                  <div className="bg-red-100 border border-red-200 p-4 rounded-lg">
-                    <code className="text-red-800 text-sm font-mono leading-relaxed whitespace-pre-wrap">
+                  <div className="bg-red-100 border border-red-200 p-3 sm:p-4 rounded-lg">
+                    <code className="text-red-800 text-xs sm:text-sm font-mono leading-relaxed whitespace-pre-wrap break-words">
                       {examples.bad}
                     </code>
                   </div>
                 </div>
 
                 {/* Good Example */}
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                  <div className="flex items-center justify-between mb-4">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 sm:p-6">
+                  <div className="flex items-center justify-between mb-3 sm:mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                        <CheckCircle className="h-4 w-4 text-white" />
+                      <div className="w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
                       </div>
-                      <h3 className="font-semibold text-green-800">Effective Approach</h3>
+                      <h3 className="font-semibold text-green-800 text-sm sm:text-base">Effective Approach</h3>
                     </div>
                     <button
                       onClick={copyToClipboard}
-                      className="flex items-center gap-2 px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition-colors glitch"
+                      className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition-colors glitch active:scale-95"
                       title="Copy prompt to clipboard"
                     >
                       <Copy className="h-3 w-3" />
-                      Copy
+                      <span className="hidden sm:inline">Copy</span>
                     </button>
                   </div>
-                  <div className="bg-green-100 border border-green-200 p-4 rounded-lg">
-                    <code className="text-green-800 text-sm font-mono leading-relaxed whitespace-pre-wrap">
+                  <div className="bg-green-100 border border-green-200 p-3 sm:p-4 rounded-lg">
+                    <code className="text-green-800 text-xs sm:text-sm font-mono leading-relaxed whitespace-pre-wrap break-words">
                       {examples.good}
                     </code>
                   </div>
@@ -136,17 +136,17 @@ const PromptCard: React.FC<PromptCardProps> = ({
               </div>
             </div>
 
-            {/* Pro Tip Section */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
-                  <Star className="h-5 w-5 text-white" />
+            {/* Pro Tip Section - Mobile optimized */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Star className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-lg mb-2 text-blue-900">
+                <div className="flex-1">
+                  <h3 className="font-bold text-base sm:text-lg mb-2 text-blue-900">
                     💡 Pro Tip
                   </h3>
-                  <p className="text-blue-800 leading-relaxed text-base">{tip}</p>
+                  <p className="text-blue-800 leading-relaxed text-sm sm:text-base">{tip}</p>
                 </div>
               </div>
             </div>

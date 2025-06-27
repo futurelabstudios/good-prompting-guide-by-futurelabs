@@ -67,12 +67,12 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
 
   if (isMobile) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-t-2 border-cyan-400/30 p-4 z-20 backdrop-blur-lg">
-        <div className="flex items-center justify-between mb-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-t-2 border-cyan-400/30 p-3 z-20 backdrop-blur-lg safe-area-bottom">
+        <div className="flex items-center justify-between mb-3">
           <div className="text-center flex-1">
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold mb-2 bg-gradient-to-r ${sectionInfo.color} text-white shadow-lg`}>
+            <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold mb-2 bg-gradient-to-r ${sectionInfo.color} text-white shadow-lg`}>
               {sectionInfo.icon}
-              {sectionInfo.section}
+              <span className="truncate">{sectionInfo.section}</span>
             </div>
             <div className="text-sm font-mono text-cyan-300 tracking-wider">
               <span className="text-cyan-400 font-bold">{sectionInfo.currentInSection}</span> 
@@ -85,14 +85,14 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
           </div>
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {currentPrompt > 1 ? (
             <Link 
               to={`/prompts/${currentPrompt - 1}`}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-lg font-medium hover:from-gray-600 hover:to-gray-500 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-lg font-medium hover:from-gray-600 hover:to-gray-500 transition-all duration-300 transform active:scale-95 shadow-lg text-sm"
             >
               <ArrowLeft className="h-4 w-4" />
-              Previous
+              <span>Previous</span>
             </Link>
           ) : (
             <div className="flex-1"></div>
@@ -101,9 +101,9 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
           {currentPrompt < totalPrompts ? (
             <Link 
               to={`/prompts/${currentPrompt + 1}`}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 transform hover:scale-105 shadow-lg glow-cyan"
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 transform active:scale-95 shadow-lg glow-cyan text-sm"
             >
-              Next
+              <span>Next</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           ) : (

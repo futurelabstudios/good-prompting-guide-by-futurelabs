@@ -5,10 +5,10 @@ import GoldenRuleCard from './GoldenRuleCard';
 
 const GoldenRulesPromptCard: React.FC = () => {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-20 px-4">
+    <div className="min-h-screen flex items-center justify-center py-8 px-3 sm:py-12 sm:px-4 pb-32 sm:pb-24">
       <Card className="w-full max-w-4xl prompt-card">
-        <CardContent className="p-8">
-          <h3 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+        <CardContent className="p-4 sm:p-6 lg:p-8">
+          <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-6 sm:mb-8 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent leading-tight">
             🧭 The 6 Golden Rules of AI Mastery
           </h3>
           
@@ -45,8 +45,8 @@ const GoldenRulesPromptCard: React.FC = () => {
             />
           </div>
           
-          <div className="mt-8 text-center">
-            <p className="text-lg text-muted-foreground italic">
+          <div className="mt-6 sm:mt-8 text-center">
+            <p className="text-base sm:text-lg text-muted-foreground italic px-2">
               "These six techniques will transform your AI interactions from basic queries to expert-level collaborations."
             </p>
           </div>
