@@ -1,7 +1,6 @@
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Zap, Trophy, Crown } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Zap, Trophy, Crown, ChevronUp, ChevronDown } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface PromptNavigationProps {
@@ -11,6 +10,33 @@ interface PromptNavigationProps {
 
 const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, totalPrompts }) => {
   const isMobile = useIsMobile();
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  
+  // Auto-hide navigation on scroll down for mobile
+  useEffect(() => {
+    if (!isMobile) return;
+    
+    const controlNavigation = () => {
+      if (typeof window !== 'undefined') {
+        if (window.scrollY > lastScrollY && window.scrollY > 100) {
+          setIsVisible(false);
+          setIsExpanded(false);
+        } else {
+          setIsVisible(true);
+        }
+        setLastScrollY(window.scrollY);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', controlNavigation);
+      return () => {
+        window.removeEventListener('scroll', controlNavigation);
+      };
+    }
+  }, [lastScrollY, isMobile]);
   
   const getSectionInfo = (promptNum: number) => {
     // Golden rules at the end
@@ -67,53 +93,114 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
 
   if (isMobile) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-t-2 border-cyan-400/30 p-3 z-20 backdrop-blur-lg safe-area-bottom">
-        <div className="flex items-center justify-between mb-3">
-          <div className="text-center flex-1">
-            <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold mb-2 bg-gradient-to-r ${sectionInfo.color} text-white shadow-lg`}>
-              {sectionInfo.icon}
-              <span className="truncate">{sectionInfo.section}</span>
-            </div>
-            <div className="text-sm font-mono text-cyan-300 tracking-wider">
-              <span className="text-cyan-400 font-bold">{sectionInfo.currentInSection}</span> 
-              <span className="text-gray-400 mx-1">of</span> 
-              <span className="text-cyan-400 font-bold">{sectionInfo.totalInSection}</span>
-              <div className="text-xs text-gray-500 mt-1">
-                Section {sectionInfo.sectionRange}
+      <div className={`fixed bottom-0 left-0 right-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 border-t-2 border-cyan-400/30 z-20 backdrop-blur-lg transition-transform duration-300 ${
+        isVisible ? 'translate-y-0' : 'translate-y-full'
+      }`}>
+        {/* Collapsed State */}
+        {!isExpanded && (
+          <div className="p-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {currentPrompt > 1 ? (
+                  <Link 
+                    to={`/prompts/${currentPrompt - 1}`}
+                    className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-lg hover:from-gray-600 hover:to-gray-500 transition-all duration-300 active:scale-95"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                  </Link>
+                ) : (
+                  <div className="w-10 h-10"></div>
+                )}
+              </div>
+              
+              <button
+                onClick={() => setIsExpanded(true)}
+                className="flex flex-col items-center gap-1 py-2 px-4 hover:bg-white/10 rounded-lg transition-colors"
+              >
+                <div className={`inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold bg-gradient-to-r ${sectionInfo.color} text-white`}>
+                  {sectionInfo.icon}
+                  <span>{sectionInfo.section}</span>
+                </div>
+                <div className="text-xs font-mono text-cyan-300">
+                  {sectionInfo.currentInSection}/{sectionInfo.totalInSection}
+                </div>
+                <ChevronUp className="h-3 w-3 text-gray-400" />
+              </button>
+              
+              <div className="flex items-center gap-2">
+                {currentPrompt < totalPrompts ? (
+                  <Link 
+                    to={`/prompts/${currentPrompt + 1}`}
+                    className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 active:scale-95 glow-cyan"
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                ) : (
+                  <div className="w-10 h-10"></div>
+                )}
               </div>
             </div>
           </div>
-        </div>
+        )}
         
-        <div className="flex items-center gap-2">
-          {currentPrompt > 1 ? (
-            <Link 
-              to={`/prompts/${currentPrompt - 1}`}
-              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-lg font-medium hover:from-gray-600 hover:to-gray-500 transition-all duration-300 transform active:scale-95 shadow-lg text-sm"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span>Previous</span>
-            </Link>
-          ) : (
-            <div className="flex-1"></div>
-          )}
-          
-          {currentPrompt < totalPrompts ? (
-            <Link 
-              to={`/prompts/${currentPrompt + 1}`}
-              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 transform active:scale-95 shadow-lg glow-cyan text-sm"
-            >
-              <span>Next</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          ) : (
-            <div className="flex-1"></div>
-          )}
-        </div>
+        {/* Expanded State */}
+        {isExpanded && (
+          <div className="p-3">
+            <div className="flex items-center justify-between mb-3">
+              <div className="text-center flex-1">
+                <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold mb-2 bg-gradient-to-r ${sectionInfo.color} text-white shadow-lg`}>
+                  {sectionInfo.icon}
+                  <span>{sectionInfo.section}</span>
+                </div>
+                <div className="text-sm font-mono text-cyan-300 tracking-wider">
+                  <span className="text-cyan-400 font-bold">{sectionInfo.currentInSection}</span> 
+                  <span className="text-gray-400 mx-1">of</span> 
+                  <span className="text-cyan-400 font-bold">{sectionInfo.totalInSection}</span>
+                  <div className="text-xs text-gray-500 mt-1">
+                    Section {sectionInfo.sectionRange}
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsExpanded(false)}
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+              >
+                <ChevronDown className="h-4 w-4 text-gray-400" />
+              </button>
+            </div>
+            
+            <div className="flex items-center gap-2">
+              {currentPrompt > 1 ? (
+                <Link 
+                  to={`/prompts/${currentPrompt - 1}`}
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-lg font-medium hover:from-gray-600 hover:to-gray-500 transition-all duration-300 active:scale-95 text-sm"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  <span>Previous</span>
+                </Link>
+              ) : (
+                <div className="flex-1"></div>
+              )}
+              
+              {currentPrompt < totalPrompts ? (
+                <Link 
+                  to={`/prompts/${currentPrompt + 1}`}
+                  className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-lg font-medium hover:from-cyan-400 hover:to-blue-500 transition-all duration-300 active:scale-95 glow-cyan text-sm"
+                >
+                  <span>Next</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              ) : (
+                <div className="flex-1"></div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 
+  // Desktop version remains the same
   return (
     <div className="fixed bottom-6 left-0 right-0 flex justify-center items-center z-20 px-4">
       <div className="bg-gradient-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-xl px-8 py-6 rounded-2xl shadow-2xl border border-cyan-400/20 max-w-2xl w-full relative overflow-hidden">

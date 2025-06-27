@@ -1,60 +1,47 @@
 
 import React from 'react';
-import { Heart, ExternalLink } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Footer = () => {
+  const location = useLocation();
+  const isMobile = useIsMobile();
+  
+  // Hide footer on prompt pages for mobile to maximize space
+  const isPromptPage = location.pathname.startsWith('/prompts/');
+  
+  if (isMobile && isPromptPage) {
+    return null;
+  }
+
   return (
-    <footer className="py-8 bg-gray-50 border-t border-gray-200">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col items-center justify-center space-y-6">
-          <div className="flex items-center justify-center gap-2 text-gray-600">
-            <span className="text-sm">Built with</span>
-            <Heart className="h-4 w-4 text-red-500 fill-red-500" />
-            <span className="text-sm">by</span>
-            <a 
-              href="https://futurelabstudios.com/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-gray-900 hover:text-gray-700 font-medium transition-colors"
+    <footer className="bg-gray-900 text-white py-8 sm:py-12 mt-auto">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="text-center">
+          <h3 className="text-lg sm:text-xl font-bold mb-4">Master AI Prompting</h3>
+          <p className="text-gray-400 mb-6 text-sm sm:text-base max-w-2xl mx-auto">
+            Transform your AI interactions with proven techniques and expert strategies. 
+            Learn to craft prompts that deliver consistent, professional results.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-8">
+            <Link 
+              to="/prompts/1" 
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors"
             >
-              Futurelab Studios
-              <ExternalLink className="h-3 w-3" />
-            </a>
+              Start Learning
+            </Link>
+            <Link 
+              to="/tools" 
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Explore Tools
+            </Link>
           </div>
           
-          {/* Social Media Links */}
-          <div className="flex items-center gap-6">
-            <a 
-              href="https://x.com/type2future" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors group"
-            >
-              <div className="w-5 h-5 bg-black rounded-sm flex items-center justify-center group-hover:bg-gray-800 transition-colors">
-                <span className="text-white text-xs font-bold">𝕏</span>
-              </div>
-              <span className="text-sm font-medium">@type2future</span>
-            </a>
-            
-            <a 
-              href="https://www.linkedin.com/in/shaider1/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors group"
-            >
-              <div className="w-5 h-5 bg-blue-600 rounded-sm flex items-center justify-center group-hover:bg-blue-700 transition-colors">
-                <span className="text-white text-xs font-bold">in</span>
-              </div>
-              <span className="text-sm font-medium">Connect on LinkedIn</span>
-            </a>
-          </div>
-          
-          <div className="text-center">
-            <p className="text-sm text-gray-500 mb-2">
-              © {new Date().getFullYear()} Futurelab Studios. Released as a public good for the AI community.
-            </p>
-            <p className="text-sm text-gray-400">
-              Free forever • Open source • Community driven
+          <div className="border-t border-gray-800 pt-6">
+            <p className="text-gray-500 text-xs sm:text-sm">
+              © 2024 Prompt Mastery Guide. Built with ❤️ for better AI interactions.
             </p>
           </div>
         </div>

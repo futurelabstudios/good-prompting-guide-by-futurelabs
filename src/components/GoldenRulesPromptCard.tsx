@@ -1,52 +1,86 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { ChevronDown, ChevronUp, Maximize2, Minimize2 } from 'lucide-react';
+import { ChevronDown, ChevronUp, Maximize2, Minimize2, Eye, EyeOff } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { useIsMobile } from '@/hooks/use-mobile';
 import GoldenRuleCard from './GoldenRuleCard';
 
 const GoldenRulesPromptCard: React.FC = () => {
+  const isMobile = useIsMobile();
   const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
-  const [isRulesCollapsed, setIsRulesCollapsed] = useState(false);
+  const [isRulesCollapsed, setIsRulesCollapsed] = useState(isMobile);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+
+  if (isMinimized) {
+    return (
+      <div className="fixed top-4 right-4 z-50 bg-white shadow-lg rounded-lg p-3 border">
+        <div className="flex items-center gap-2">
+          <span className="text-xl">🧭</span>
+          <span className="text-sm font-medium">Golden Rules</span>
+          <button
+            onClick={() => setIsMinimized(false)}
+            className="p-1 hover:bg-gray-100 rounded"
+          >
+            <Eye className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-white' : 'min-h-screen'} flex items-center justify-center py-4 px-2 sm:py-8 sm:px-3 pb-32 sm:pb-24`}>
+    <div className={`${isFullscreen ? 'fixed inset-0 z-50 bg-white' : 'min-h-screen'} flex items-center justify-center ${isMobile ? 'px-0 pb-24' : 'py-4 px-2 pb-32'}`}>
       <Card className="w-full max-w-6xl prompt-card h-full flex flex-col">
-        <CardContent className="flex-1 p-3 sm:p-4 lg:p-6 overflow-auto">
-          {/* Collapsible Header */}
+        <CardContent className="flex-1 p-2 sm:p-4 lg:p-6 overflow-auto">
+          {/* Header */}
           <Collapsible open={!isHeaderCollapsed} onOpenChange={setIsHeaderCollapsed}>
-            <div className="flex items-center justify-between mb-4">
-              <CollapsibleTrigger className="flex items-center gap-2 hover:bg-gray-50 rounded p-2 transition-colors">
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent leading-tight">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <CollapsibleTrigger className="flex items-center gap-2 hover:bg-gray-50 rounded p-2 transition-colors flex-1 min-w-0">
+                <h3 className="text-lg sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent leading-tight">
                   🧭 The 6 Golden Rules of AI Mastery
                 </h3>
-                {isHeaderCollapsed ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
+                {isHeaderCollapsed ? <ChevronDown className="h-4 w-4 flex-shrink-0" /> : <ChevronUp className="h-4 w-4 flex-shrink-0" />}
               </CollapsibleTrigger>
               
-              <button
-                onClick={() => setIsFullscreen(!isFullscreen)}
-                className="p-2 hover:bg-gray-100 rounded transition-colors"
-                title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
-              >
-                {isFullscreen ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
-              </button>
+              <div className="flex items-center gap-1 flex-shrink-0 ml-2">
+                {isMobile && (
+                  <button
+                    onClick={() => setIsMinimized(true)}
+                    className="p-2 hover:bg-gray-100 rounded transition-colors"
+                    title="Minimize"
+                  >
+                    <EyeOff className="h-4 w-4" />
+                  </button>
+                )}
+                <button
+                  onClick={() => setIsFullscreen(!isFullscreen)}
+                  className="p-2 hover:bg-gray-100 rounded transition-colors"
+                  title={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+                >
+                  {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
             
             <CollapsibleContent>
-              <div className="mb-6 text-center">
-                <p className="text-sm sm:text-base text-muted-foreground italic px-2">
+              <div className="mb-4 sm:mb-6 text-center">
+                <p className="text-xs sm:text-base text-muted-foreground italic px-2">
                   "Master these six techniques to transform your AI interactions from basic queries to expert-level collaborations."
                 </p>
               </div>
             </CollapsibleContent>
           </Collapsible>
           
-          {/* Collapsible Rules */}
+          {/* Rules */}
           <Collapsible open={!isRulesCollapsed} onOpenChange={setIsRulesCollapsed}>
-            <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded transition-colors mb-4">
-              <h4 className="text-lg font-semibold text-gray-800">📋 The Rules</h4>
-              {isRulesCollapsed ? <ChevronDown className="h-5 w-5" /> : <ChevronUp className="h-5 w-5" />}
+            <CollapsibleTrigger className="flex items-center justify-between w-full p-2 hover:bg-gray-50 rounded transition-colors mb-3 sm:mb-4">
+              <h4 className="text-base sm:text-lg font-semibold text-gray-800">📋 The Rules</h4>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500 hidden sm:inline">Tap to expand</span>
+                {isRulesCollapsed ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
+              </div>
             </CollapsibleTrigger>
             
             <CollapsibleContent>
@@ -85,8 +119,8 @@ const GoldenRulesPromptCard: React.FC = () => {
             </CollapsibleContent>
           </Collapsible>
           
-          <div className="mt-6 sm:mt-8 text-center">
-            <p className="text-base sm:text-lg text-muted-foreground italic px-2">
+          <div className="mt-4 sm:mt-8 text-center">
+            <p className="text-sm sm:text-lg text-muted-foreground italic px-2">
               "These six techniques will transform your AI interactions from basic queries to expert-level collaborations."
             </p>
           </div>
