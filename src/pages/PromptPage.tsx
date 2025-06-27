@@ -23,20 +23,26 @@ import {
   Shield,
   Eye,
   TrendingUp,
-  Settings
+  Settings,
+  Compass
 } from 'lucide-react';
 
 const PromptPage = () => {
   const { id } = useParams();
   const promptId = parseInt(id || "1");
   
-  const totalPrompts = 18;
+  const totalPrompts = 31; // 30 prompts + 1 golden rules
   
   if (isNaN(promptId) || promptId < 1 || promptId > totalPrompts) {
     return <Navigate to="/prompts/1" replace />;
   }
   
   const renderPromptContent = () => {
+    // Golden Rules at the end
+    if (promptId === 31) {
+      return <GoldenRulesPromptCard />;
+    }
+    
     switch (promptId) {
       case 1:
         return (
@@ -688,6 +694,413 @@ Multi-phase content marketing campaign requiring research, strategy, creation, a
 **Required Input**: [What information is needed now]`
             }}
             tip="Think of yourself as a project manager coordinating a team of AI specialists. Each AI interaction should have a clear role, specific inputs/outputs, and defined handoff points. Human oversight should focus on strategic decisions, quality gates, and creative direction—areas where human judgment is irreplaceable."
+          />
+        );
+      case 19:
+        return (
+          <PromptCard
+            number="19"
+            icon={<Brain className="h-6 w-6" />}
+            title="ELI5 Technique"
+            description="Ask AI to 'Explain Like I'm 5/10/PhD' based on your audience level. This technique adjusts complexity and ensures appropriate communication for any audience."
+            difficulty="Intermediate"
+            xp={180}
+            examples={{
+              bad: "Explain quantum computing.",
+              good: `Explain quantum computing using the ELI5 approach for these different audiences:
+
+**ELI5 (Age 5)**: Use simple words, fun analogies, maybe mention toys or games
+**ELI10 (Age 10)**: Include some technical terms but keep analogies relatable  
+**ELI College**: Assume basic science knowledge, use proper terminology
+**ELI PhD**: Full technical depth, assume advanced background
+
+Start with: "I'll explain this at different levels..."
+
+**Current audience**: [Specify which level you need]
+**Context**: This explanation will be used for [specific purpose]`
+            }}
+            tip="The ELI5 technique forces AI to adjust its communication style to match your audience's knowledge level. This prevents over-complicated explanations for beginners or oversimplified content for experts. Always specify the audience level upfront."
+          />
+        );
+      case 20:
+        return (
+          <PromptCard
+            number="20"
+            icon={<CheckCircle className="h-6 w-6" />}
+            title="Ask What It Doesn't Know"
+            description="Encourage AI self-checking and reduce hallucinations by explicitly asking about limitations, uncertainties, and knowledge gaps."
+            difficulty="Intermediate"
+            xp={200}
+            examples={{
+              bad: "Tell me everything about the latest AI developments.",
+              good: `Provide an overview of recent AI developments, and importantly:
+
+**Include these self-checks**:
+1. **Knowledge Cutoff**: Clearly state your training data cutoff date
+2. **Uncertainty Indicators**: Use phrases like "based on information available until..." or "this may have changed since..."  
+3. **Confidence Levels**: Rate your confidence (1-10) for each major claim
+4. **Knowledge Gaps**: Explicitly mention what you DON'T know or can't verify
+5. **Recommend Sources**: Suggest where I should look for the most current information
+
+**Format**: For each development mentioned, include: [Fact] - Confidence: X/10 - Last verified: [date]
+
+This helps me understand the reliability and recency of the information.`
+            }}
+            tip="AI becomes more reliable when you explicitly ask it to acknowledge its limitations. This reduces overconfident responses and helps you identify where you need additional verification or more current sources."
+          />
+        );
+      // New Expert Level prompts (21-30)
+      case 21:
+        return (
+          <PromptCard
+            number="21"
+            icon={<Zap className="h-6 w-6" />}
+            title="Take Your Time Technique"
+            description="Slow down AI responses to improve reasoning quality. Adding 'take your time' or similar phrases often leads to more thoughtful, detailed responses."
+            difficulty="Expert"
+            xp={225}
+            examples={{
+              bad: "Solve this complex problem quickly.",
+              good: `Take your time to work through this complex problem systematically. There's no rush - I value thoroughness over speed.
+
+**Problem**: [Complex scenario]
+
+**Process**: 
+- Take a step back and think about this carefully
+- Consider multiple approaches before settling on one
+- Show your reasoning at each step  
+- Double-check your logic before moving to the next phase
+- If you're uncertain about anything, say so
+
+**Quality over speed**: I'd rather wait for a well-reasoned response than get a quick but incomplete answer.
+
+Work through this methodically and show me your thinking process.`
+            }}
+            tip="The 'take your time' technique leverages AI's tendency to mirror the pace and thoughtfulness of your request. When you emphasize careful consideration, AI typically produces more detailed, nuanced responses with better reasoning."
+          />
+        );
+      case 22:
+        return (
+          <PromptCard
+            number="22"
+            icon={<Lightbulb className="h-6 w-6" />}
+            title="First Principles Thinking"
+            description="Request bottom-up explanations that start from fundamental concepts rather than surface-level summaries. This technique reveals deeper understanding."
+            difficulty="Expert"
+            xp={250}
+            examples={{
+              bad: "Summarize how blockchain works.",
+              good: `Explain blockchain using first principles thinking - start from the very foundation and build up:
+
+**Start from fundamentals**:
+1. **Core Problem**: What fundamental problem does blockchain solve?
+2. **Basic Building Blocks**: What are the most basic components needed?
+3. **Step-by-Step Construction**: How do these components combine?
+4. **Emergent Properties**: What capabilities emerge from this combination?
+5. **Real-World Application**: How does this foundation manifest in practice?
+
+**Avoid**: Industry jargon, high-level summaries, or assuming prior knowledge
+**Focus on**: The logical progression from basic principles to complex system
+
+Think like you're explaining to someone who has never heard of digital systems but understands basic logic and math.`
+            }}
+            tip="First principles thinking forces AI to break complex topics down to their most fundamental components. This often reveals insights that surface-level explanations miss and helps you understand the 'why' behind the 'what.'"
+          />
+        );
+      case 23:
+        return (
+          <PromptCard
+            number="23"
+            icon={<MessageSquare className="h-6 w-6" />}
+            title="Treat It Like a Person"
+            description="Use natural dialogue patterns rather than search-engine queries. AI responds better to conversational, human-like interactions."
+            difficulty="Expert"
+            xp={200}
+            examples={{
+              bad: "Customer retention strategies e-commerce best practices optimization",
+              good: `Hey, I'm struggling with something and could use your perspective. 
+
+I'm running an e-commerce business and I'm losing customers faster than I'd like. It's been keeping me up at night, honestly. I know the basics - good customer service, quality products - but I feel like I'm missing something deeper.
+
+What I'm really wondering is: what makes customers stick around long-term? Not just the obvious stuff, but the psychological factors that create genuine loyalty?
+
+I've got about 1,000 customers right now, mostly in the 25-45 age range, and my repeat purchase rate is only 15%. Industry average is supposedly 20-30%, so I know there's room for improvement.
+
+What would you focus on if you were in my shoes?`
+            }}
+            tip="AI performs better with natural, conversational prompts because they provide context, emotion, and clear motivation. Instead of keyword lists, tell a story about your situation. Include why you care about the answer."
+          />
+        );
+      case 24:
+        return (
+          <PromptCard
+            number="24"
+            icon={<RefreshCw className="h-6 w-6" />}
+            title="Ask for a Second Opinion"
+            description="Request multiple perspectives or alternative solutions to get more comprehensive and balanced responses."
+            difficulty="Expert"
+            xp={275}
+            examples={{
+              bad: "What's the best marketing strategy for my startup?",
+              good: `I need multiple perspectives on marketing strategy for my B2B SaaS startup. Give me several different approaches:
+
+**Scenario**: Early-stage startup, $50K budget, targeting small businesses
+
+**Multiple viewpoints requested**:
+1. **Conservative Approach**: Low-risk, proven methods
+2. **Aggressive Growth**: High-risk, high-reward strategies  
+3. **Bootstrap Approach**: Maximum impact with minimal budget
+4. **Data-Driven**: Analytics-heavy, optimization-focused
+5. **Relationship-First**: Community and partnership-focused
+
+**For each approach**:
+- Core strategy and tactics
+- Expected timeline and budget allocation
+- Main risks and potential rewards
+- Success metrics to track
+
+**Then synthesize**: Which elements from each approach could work together? What hybrid strategy might be optimal?
+
+Help me see this from multiple angles before I decide.`
+            }}
+            tip="Requesting multiple perspectives prevents tunnel vision and reveals options you might not have considered. This technique is especially valuable for strategic decisions where different approaches each have merit."
+          />
+        );
+      case 25:
+        return (
+          <PromptCard
+            number="25"
+            icon={<Target className="h-6 w-6" />}
+            title="Constraint-Based Prompting"
+            description="Use specific limitations to guide AI toward more creative and practical solutions. Constraints often spark better ideas than unlimited freedom."
+            difficulty="Expert"
+            xp={260}
+            examples={{
+              bad: "Help me improve my presentation.",
+              good: `Help me improve my presentation within these specific constraints:
+
+**Hard Constraints** (cannot change):
+- Exactly 10 minutes speaking time
+- Audience of 50 non-technical executives  
+- No budget for new slides or graphics
+- Must use existing data from Q3 report
+- Presentation is tomorrow at 2 PM
+
+**Soft Constraints** (prefer to avoid):
+- Minimal text-heavy slides
+- Avoid complex charts
+- Keep technical jargon to minimum
+
+**Success Criteria**:
+- Audience should remember 3 key points
+- Must lead to follow-up meetings
+- Should position our team as solution-focused
+
+**Current Issues**: 
+- Too much data, not enough story
+- 15 minutes of content crammed into 10 minutes
+- Losing audience attention after slide 3
+
+Work within these constraints to suggest specific improvements.`
+            }}
+            tip="Constraints force creative problem-solving and ensure solutions are actually implementable. Instead of generic advice, you get specific recommendations that work within your real-world limitations."
+          />
+        );
+      case 26:
+        return (
+          <PromptCard
+            number="26"
+            icon={<Trophy className="h-6 w-6" />}
+            title="Meta-Prompting Mastery"
+            description="Create prompts that help you create better prompts. Use AI to improve your prompt engineering skills through recursive improvement."
+            difficulty="Expert"
+            xp={300}
+            examples={{
+              bad: "How can I write better prompts?",
+              good: `I want you to help me improve my prompt engineering skills. Here's a prompt I wrote that didn't work well:
+
+**My Original Prompt**: [paste your prompt here]
+**What I Expected**: [describe desired outcome]  
+**What I Actually Got**: [describe actual result]
+**Gap Analysis**: [where it fell short]
+
+**Meta-Analysis Request**:
+1. **Structural Issues**: What's wrong with my prompt structure?
+2. **Missing Elements**: What key components did I forget?
+3. **Clarity Problems**: Where is my prompt ambiguous?
+4. **Context Gaps**: What context should I have provided?
+5. **Instruction Quality**: How could my instructions be clearer?
+
+**Improved Version**: Rewrite my prompt using best practices
+**Explanation**: Explain why each change makes it better
+**Alternative Approaches**: Show 2-3 different ways to structure this prompt
+
+**Learning**: What general principles should I apply to future prompts?
+
+Make this a teaching moment, not just a fix.`
+            }}
+            tip="Meta-prompting accelerates your learning by turning AI into a prompt engineering coach. Instead of just getting answers, you learn the principles behind effective prompting that you can apply to future challenges."
+          />
+        );
+      case 27:
+        return (
+          <PromptCard
+            number="27"
+            icon={<Settings className="h-6 w-6" />}
+            title="Dynamic Context Switching"
+            description="Master the art of changing AI's perspective, role, or focus mid-conversation while maintaining context and continuity."
+            difficulty="Expert"
+            xp={285}
+            examples={{
+              bad: "Now analyze this from a different angle.",
+              good: `**Context Switch Protocol**
+
+**Previous Context**: We've been analyzing this marketing campaign from a data analyst perspective, focusing on metrics and performance.
+
+**New Context Switch**: 
+Now I need you to completely shift perspective and analyze the SAME campaign as:
+
+**New Role**: Creative director with 15 years in advertising
+**New Focus**: Brand storytelling, emotional impact, and creative execution
+**New Priorities**: Memorability, brand alignment, creative innovation
+**Maintain**: All the data and facts from our previous analysis
+**Ignore**: The analytical framework we were using before
+
+**Bridging Question**: "Given what we learned about performance metrics, how does this change your creative assessment?"
+
+**Output**: Provide the creative director's perspective while referencing (but not being constrained by) the analytical insights.
+
+**Quality Check**: Ensure this feels like a genuinely different perspective, not just the same analysis with different words.`
+            }}
+            tip="Context switching allows you to explore complex problems from multiple expert viewpoints within a single conversation. The key is explicitly signaling the switch while maintaining relevant information from previous contexts."
+          />
+        );
+      case 28:
+        return (
+          <PromptCard
+            number="28"
+            icon={<Eye className="h-6 w-6" />}
+            title="Assumption Surfacing"
+            description="Force AI to identify and examine the hidden assumptions underlying its recommendations. This reveals potential blind spots and strengthens solutions."
+            difficulty="Expert"
+            xp={270}
+            examples={{
+              bad: "Give me advice on scaling my business.",
+              good: `Before giving me scaling advice, I want you to surface and examine your assumptions:
+
+**Business Context**: [Brief description of your business]
+
+**Assumption Analysis Required**:
+1. **What are you assuming** about my business model, market, or resources?
+2. **What are you assuming** about my goals, timeline, and risk tolerance?  
+3. **What are you assuming** about my current capabilities and constraints?
+4. **What are you assuming** about market conditions and competitive landscape?
+5. **What are you assuming** about my definition of "success"?
+
+**Process**:
+- **Step 1**: List your key assumptions explicitly
+- **Step 2**: Challenge each assumption - what if it's wrong?
+- **Step 3**: Provide advice for different assumption scenarios
+- **Step 4**: Ask me clarifying questions to validate assumptions
+
+**Format**: 
+"I'm assuming X... but if actually Y, then my advice would be Z instead."
+
+Help me understand the foundation your recommendations are built on.`
+            }}
+            tip="Assumption surfacing prevents mismatched advice by making AI's underlying beliefs explicit. This technique is crucial for complex decisions where hidden assumptions can lead to completely wrong recommendations."
+          />
+        );
+      case 29:
+        return (
+          <PromptCard
+            number="29"
+            icon={<Brain className="h-6 w-6" />}
+            title="Recursive Problem Solving"
+            description="Apply prompt engineering techniques to solve prompt engineering problems. Use layered approaches where each level builds on the previous one."
+            difficulty="Expert"
+            xp={320}
+            examples={{
+              bad: "Help me solve this complex problem.",
+              good: `**Recursive Problem-Solving Framework**
+
+**Level 1 - Problem Definition**:
+First, help me properly define this problem using the 5 Whys technique:
+- Surface problem: [Initial problem statement]
+- Why is this a problem? 
+- [Continue drilling down 5 levels]
+
+**Level 2 - Meta-Problem Analysis**:
+Now analyze the problem-solving approach itself:
+- What type of problem is this? (Technical, strategic, interpersonal, etc.)
+- What problem-solving frameworks are most appropriate?
+- What are the risks of solving this wrong?
+- What would "good enough" vs "perfect" solutions look like?
+
+**Level 3 - Solution Architecture**:
+Design a multi-layered solution approach:
+- Quick wins (0-2 weeks)
+- Medium-term improvements (1-3 months)  
+- Long-term systematic changes (3-12 months)
+- Each level should build on the previous one
+
+**Level 4 - Implementation Strategy**:
+For each solution layer, define:
+- Success metrics and feedback loops
+- Risk mitigation and contingency plans
+- Resource requirements and dependencies
+- Decision points and adaptation triggers
+
+**Recursive Check**: How would you solve the problem of implementing these solutions?`
+            }}
+            tip="Recursive problem-solving prevents surface-level solutions by applying systematic thinking at multiple levels. Each layer reveals different aspects of the challenge and ensures comprehensive, implementable solutions."
+          />
+        );
+      case 30:
+        return (
+          <PromptCard
+            number="30"
+            icon={<Compass className="h-6 w-6" />}
+            title="The Master's Synthesis"
+            description="Integrate all advanced techniques into a cohesive prompting philosophy. Create your personal prompt engineering methodology that combines technical skill with strategic thinking."
+            difficulty="Expert"
+            xp={350}
+            examples={{
+              bad: "Use advanced prompting techniques to help with my project.",
+              good: `**Master-Level Synthesis Protocol**
+
+**Project**: [Complex, multi-faceted challenge]
+
+**Integrated Approach**:
+
+**Phase 1: Foundation** (First Principles + Assumption Surfacing)
+- Break down to fundamental components
+- Surface and validate all assumptions
+- Establish clear success criteria and constraints
+
+**Phase 2: Exploration** (Multiple Perspectives + ELI5)
+- Generate solutions from 3+ different expert viewpoints  
+- Explain complex elements at appropriate audience levels
+- Apply "take your time" for thorough analysis
+
+**Phase 3: Validation** (Self-Checking + Second Opinions)
+- Challenge each recommendation with "what doesn't AI know?"
+- Generate alternative approaches and hybrid solutions
+- Identify potential failure modes and mitigation strategies
+
+**Phase 4: Implementation** (Context Switching + Recursive Solving)
+- Switch between strategic and tactical perspectives
+- Design recursive feedback loops and adaptation mechanisms
+- Create meta-level monitoring for solution effectiveness
+
+**Quality Framework**:
+- Treat like human dialogue throughout
+- Apply appropriate constraints to force creativity
+- Use meta-prompting to improve the process itself
+
+**Synthesis Question**: How would you approach this same challenge differently in 6 months with improved capabilities?`
+            }}
+            tip="Master-level prompting isn't about using every technique - it's about orchestrating the right combination for each unique challenge. Develop your own synthesis methodology that becomes your signature approach to complex problems."
           />
         );
       default:

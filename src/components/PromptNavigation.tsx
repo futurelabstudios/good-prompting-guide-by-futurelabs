@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Zap, Trophy, Crown } from 'lucide-react';
@@ -14,6 +13,20 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
   const isMobile = useIsMobile();
   
   const getSectionInfo = (promptNum: number) => {
+    // Golden rules at the end
+    if (promptNum === 31) {
+      return {
+        section: 'Golden Rules',
+        icon: <Zap className="h-3 w-3" />,
+        color: 'from-amber-400 to-orange-500',
+        bgColor: 'bg-gradient-to-r from-amber-50 to-orange-50',
+        textColor: 'text-amber-700',
+        sectionRange: 'Final',
+        currentInSection: 1,
+        totalInSection: 1
+      };
+    }
+    
     if (promptNum <= 10) {
       return { 
         section: 'Beginner', 
@@ -21,7 +34,9 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
         color: 'from-emerald-400 to-teal-500',
         bgColor: 'bg-gradient-to-r from-emerald-50 to-teal-50',
         textColor: 'text-emerald-700',
-        sectionRange: '1-10'
+        sectionRange: '1-10',
+        currentInSection: promptNum,
+        totalInSection: 10
       };
     }
     if (promptNum <= 20) {
@@ -31,7 +46,9 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
         color: 'from-blue-400 to-purple-500',
         bgColor: 'bg-gradient-to-r from-blue-50 to-purple-50',
         textColor: 'text-blue-700',
-        sectionRange: '11-20'
+        sectionRange: '11-20',
+        currentInSection: promptNum - 10,
+        totalInSection: 10
       };
     }
     return { 
@@ -40,13 +57,13 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
       color: 'from-purple-400 to-pink-500',
       bgColor: 'bg-gradient-to-r from-purple-50 to-pink-50',
       textColor: 'text-purple-700',
-      sectionRange: '21-30'
+      sectionRange: '21-30',
+      currentInSection: promptNum - 20,
+      totalInSection: 10
     };
   };
 
   const sectionInfo = getSectionInfo(currentPrompt);
-  const sectionStart = currentPrompt <= 10 ? 1 : currentPrompt <= 20 ? 11 : 21;
-  const currentInSection = currentPrompt - sectionStart + 1;
 
   if (isMobile) {
     return (
@@ -58,9 +75,9 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
               {sectionInfo.section}
             </div>
             <div className="text-sm font-mono text-cyan-300 tracking-wider">
-              <span className="text-cyan-400 font-bold">{currentInSection}</span> 
+              <span className="text-cyan-400 font-bold">{sectionInfo.currentInSection}</span> 
               <span className="text-gray-400 mx-1">of</span> 
-              <span className="text-cyan-400 font-bold">10</span>
+              <span className="text-cyan-400 font-bold">{sectionInfo.totalInSection}</span>
               <div className="text-xs text-gray-500 mt-1">
                 Section {sectionInfo.sectionRange}
               </div>
@@ -126,9 +143,9 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
             
             <div className="space-y-2">
               <div className="font-mono text-lg text-white tracking-wider">
-                <span className="text-cyan-400 font-bold text-xl">{currentInSection}</span> 
+                <span className="text-cyan-400 font-bold text-xl">{sectionInfo.currentInSection}</span> 
                 <span className="text-gray-400 mx-2">of</span> 
-                <span className="text-cyan-400 font-bold text-xl">10</span>
+                <span className="text-cyan-400 font-bold text-xl">{sectionInfo.totalInSection}</span>
               </div>
               
               <div className="text-xs text-gray-400 font-mono">
@@ -139,7 +156,7 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
               <div className="w-32 h-1 bg-gray-700 rounded-full overflow-hidden mx-auto">
                 <div 
                   className={`h-full bg-gradient-to-r ${sectionInfo.color} transition-all duration-500 ease-out`}
-                  style={{ width: `${(currentInSection / 10) * 100}%` }}
+                  style={{ width: `${(sectionInfo.currentInSection / sectionInfo.totalInSection) * 100}%` }}
                 ></div>
               </div>
             </div>
@@ -164,4 +181,3 @@ const PromptNavigation: React.FC<PromptNavigationProps> = ({ currentPrompt, tota
 };
 
 export default PromptNavigation;
-

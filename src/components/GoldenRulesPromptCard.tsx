@@ -6,31 +6,49 @@ import GoldenRuleCard from './GoldenRuleCard';
 const GoldenRulesPromptCard: React.FC = () => {
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-20 px-4">
-      <Card className="w-full max-w-3xl prompt-card">
+      <Card className="w-full max-w-4xl prompt-card">
         <CardContent className="p-8">
-          <h3 className="text-3xl font-bold text-center mb-8">🧭 The 4 Golden Rules of AI Use</h3>
+          <h3 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+            🧭 The 6 Golden Rules of AI Mastery
+          </h3>
           
           <div className="border rounded-lg divide-y">
             <GoldenRuleCard 
               number={1}
-              title="Invite AI into everything"
-              description="Brainstorming, writing, analysis, admin – if it can be typed, it can be AI-assisted."
+              title="ELI5 - Explain Like I'm 5/10/PhD"
+              description="Ask it to 'Explain Like I'm 5/10/PhD' based on audience level. This adjusts complexity perfectly for your target audience."
             />
             <GoldenRuleCard 
               number={2}
-              title="Maintain human supervision"
-              description="Verify, edit, and contextualize all AI-generated content – you're the expert on context."
+              title="Ask What It Doesn't Know"
+              description="Encourages self-checking and reduces hallucinations. Always ask AI to identify its limitations and uncertainties."
             />
             <GoldenRuleCard 
               number={3}
-              title="Treat AI like a person"
-              description="Use clear instructions, appropriate tone, and set realistic expectations."
+              title="Take Your Time"
+              description="Slows response, often improves reasoning. Adding 'take your time' leads to more thoughtful, detailed responses."
             />
             <GoldenRuleCard 
               number={4}
-              title="Assume this is the worst AI you'll ever use"
-              description="The future holds more powerful, specialized tools – what you learn now will transfer."
+              title="First Principles Thinking"
+              description="Request bottom-up explanation, not surface summaries. Start from fundamentals and build up to complex concepts."
             />
+            <GoldenRuleCard 
+              number={5}
+              title="Treat It Like a Person"
+              description="Use dialogue, not search queries. Natural conversation patterns work better than keyword-based commands."
+            />
+            <GoldenRuleCard 
+              number={6}
+              title="Ask for a Second Opinion"
+              description="Get multiple answers or versions. Request different perspectives to ensure comprehensive, balanced solutions."
+            />
+          </div>
+          
+          <div className="mt-8 text-center">
+            <p className="text-lg text-muted-foreground italic">
+              "These six techniques will transform your AI interactions from basic queries to expert-level collaborations."
+            </p>
           </div>
         </CardContent>
       </Card>
