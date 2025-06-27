@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Clock, Star, CheckCircle, X } from 'lucide-react';
+import { Clock, Star, CheckCircle, X, Copy } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 interface PromptCardProps {
   number: string;
@@ -27,6 +28,8 @@ const PromptCard: React.FC<PromptCardProps> = ({
   difficulty = "Beginner",
   xp = 50,
 }) => {
+  const { toast } = useToast();
+
   const getDifficultyColor = (diff: string) => {
     switch (diff) {
       case 'Beginner': return 'bg-green-100 text-green-700';
@@ -35,6 +38,24 @@ const PromptCard: React.FC<PromptCardProps> = ({
       case 'Expert': return 'bg-orange-100 text-orange-700';
       case 'Master': return 'bg-red-100 text-red-700';
       default: return 'bg-gray-100 text-gray-700';
+    }
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(examples.good);
+      toast({
+        title: "✨ Copied!",
+        description: "Prompt copied to clipboard. Ready to use!",
+        duration: 2000,
+      });
+    } catch (err) {
+      toast({
+        title: "❌ Copy failed",
+        description: "Could not copy to clipboard. Please try again.",
+        variant: "destructive",
+        duration: 2000,
+      });
     }
   };
 
@@ -90,11 +111,21 @@ const PromptCard: React.FC<PromptCardProps> = ({
 
                 {/* Good Example */}
                 <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                      <CheckCircle className="h-4 w-4 text-white" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                        <CheckCircle className="h-4 w-4 text-white" />
+                      </div>
+                      <h3 className="font-semibold text-green-800">Effective Approach</h3>
                     </div>
-                    <h3 className="font-semibold text-green-800">Effective Approach</h3>
+                    <button
+                      onClick={copyToClipboard}
+                      className="flex items-center gap-2 px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700 transition-colors glitch"
+                      title="Copy prompt to clipboard"
+                    >
+                      <Copy className="h-3 w-3" />
+                      Copy
+                    </button>
                   </div>
                   <div className="bg-green-100 border border-green-200 p-4 rounded-lg">
                     <code className="text-green-800 text-sm font-mono leading-relaxed whitespace-pre-wrap">
