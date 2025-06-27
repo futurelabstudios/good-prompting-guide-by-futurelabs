@@ -14,10 +14,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 230 79% 34%; /* Quantum blue */
+    --primary: 230 79% 34%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 280 72% 36%; /* Quantum purple */
+    --secondary: 280 72% 36%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 210 40% 96.1%;
@@ -46,10 +46,10 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 230 79% 34%; /* Quantum blue */
+    --primary: 230 79% 34%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 280 72% 36%; /* Quantum purple */
+    --secondary: 280 72% 36%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
@@ -77,70 +77,96 @@
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+code, pre {
+  font-family: 'JetBrains Mono', 'Monaco', 'Menlo', monospace;
 }
 
 .gradient-text {
   @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(to right, #143c8c, #6a33a5);
+  background-image: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
 }
 
-.quantum-gradient-bg {
-  background: linear-gradient(135deg, #143c8c 0%, #6a33a5 100%);
+.modern-gradient-bg {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
 }
 
-.card-highlight {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.glass-effect {
+  @apply bg-white/10 backdrop-blur-xl border border-white/20;
 }
 
-.card-highlight:hover {
-  transform: translateY(-5px);
+.card-modern {
+  @apply bg-white/95 backdrop-blur-sm shadow-xl border border-gray-200/50 rounded-2xl;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-modern:hover {
+  @apply shadow-2xl border-blue-300/50;
+  transform: translateY(-8px) scale(1.02);
+}
+
+.btn-modern {
+  @apply relative overflow-hidden rounded-xl font-semibold transition-all duration-300;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-.scroll-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+.btn-modern:hover {
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
-.scroll-container {
-  scroll-snap-type: y mandatory;
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+  to { box-shadow: 0 0 30px rgba(139, 92, 246, 0.8); }
+}
+
+/* Smooth scrolling */
+html {
   scroll-behavior: smooth;
-  overflow-y: auto;
-  height: 100vh;
 }
 
-.prompt-card {
-  @apply bg-gradient-to-br from-white to-secondary/5 shadow-md border border-secondary/20 rounded-xl transition-all hover:shadow-xl;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.prompt-number {
-  @apply flex items-center justify-center h-12 w-12 rounded-full text-white font-bold text-xl;
-  background: linear-gradient(135deg, #143c8c 0%, #6a33a5 100%);
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.5);
 }
 
-.wave-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
-  line-height: 0;
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 10px;
 }
 
-.wave-bottom svg {
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 79px;
-}
-
-.wave-bottom .shape-fill {
-  fill: #FFFFFF;
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
 }
