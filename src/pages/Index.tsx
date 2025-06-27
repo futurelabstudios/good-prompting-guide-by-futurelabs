@@ -113,49 +113,49 @@ const Index = () => {
         <Hero />
         
         {/* Learning Path */}
-        <div className="py-16 px-6">
+        <div className="py-12 md:py-16 px-4 md:px-6">
           <div className="container mx-auto max-w-4xl">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <div className="text-center mb-8 md:mb-12">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 md:mb-4 px-2">
                 Your Learning Path
               </h2>
-              <p className="text-lg text-gray-600">
+              <p className="text-base md:text-lg text-gray-600 px-2">
                 Master prompt engineering through our structured curriculum
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {promptTechniques.map((technique, index) => (
                 <Link 
                   to={`/prompts/${technique.id}`} 
                   key={technique.id}
                   className="block group"
                 >
-                  <div className="minimal-card p-6 group-hover:shadow-lg transition-all duration-200">
+                  <div className="minimal-card p-4 md:p-6 group-hover:shadow-lg transition-all duration-200">
                     <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-sm font-medium text-gray-700">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 md:gap-3 mb-2 flex-wrap">
+                          <div className="w-7 h-7 md:w-8 md:h-8 bg-gray-100 rounded-lg flex items-center justify-center text-xs md:text-sm font-medium text-gray-700 shrink-0">
                             {technique.id}
                           </div>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${getDifficultyColor(technique.difficulty)}`}>
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${getDifficultyColor(technique.difficulty)} shrink-0`}>
                             {technique.difficulty}
                           </span>
-                          <div className="flex items-center gap-1 text-gray-500 text-sm">
+                          <div className="flex items-center gap-1 text-gray-500 text-xs md:text-sm">
                             <Clock className="h-3 w-3" />
                             {technique.time}
                           </div>
                         </div>
                         
-                        <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-gray-700 transition-colors">
+                        <h3 className="text-base md:text-lg font-semibold text-gray-900 mb-1 group-hover:text-gray-700 transition-colors">
                           {technique.title}
                         </h3>
-                        <p className="text-gray-600 text-sm">
+                        <p className="text-gray-600 text-xs md:text-sm pr-2">
                           {technique.description}
                         </p>
                       </div>
                       
-                      <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all" />
+                      <ArrowRight className="h-4 w-4 md:h-5 md:w-5 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all shrink-0 ml-2" />
                     </div>
                   </div>
                 </Link>
@@ -163,17 +163,17 @@ const Index = () => {
             </div>
 
             {/* CTA Section */}
-            <div className="mt-16 text-center">
-              <div className="bg-gray-50 p-8 rounded-xl">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <div className="mt-12 md:mt-16 text-center">
+              <div className="bg-gray-50 p-6 md:p-8 rounded-xl">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4 px-2">
                   Ready to Master AI Communication?
                 </h3>
-                <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                <p className="text-gray-600 mb-4 md:mb-6 max-w-2xl mx-auto text-sm md:text-base px-2">
                   Join thousands of learners who've improved their AI interactions through structured learning.
                 </p>
                 <Link 
                   to="/prompts/1"
-                  className="minimal-button-primary px-8 py-3"
+                  className="minimal-button-primary px-6 md:px-8 py-2 md:py-3 text-sm md:text-base"
                 >
                   Start Your Journey
                 </Link>
