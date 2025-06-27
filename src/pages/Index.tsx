@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Hero from '@/components/Hero';
-import { Trophy, Target, Zap, BookOpen, Users, Award } from 'lucide-react';
+import { ArrowRight, Clock, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Index = () => {
@@ -12,188 +12,172 @@ const Index = () => {
       id: 1, 
       title: "Be Specific, Not Vague", 
       difficulty: "Beginner",
-      xp: 50,
-      icon: <Target className="h-5 w-5" />
+      time: "5 min",
+      description: "Learn why specificity is the foundation of effective prompts"
     },
     { 
       id: 2, 
       title: "Structure with Tags", 
       difficulty: "Beginner",
-      xp: 75,
-      icon: <BookOpen className="h-5 w-5" />
+      time: "7 min",
+      description: "Organize your prompts using XML-style tags for clarity"
     },
     { 
       id: 3, 
       title: "Role-Data-Task Framework", 
       difficulty: "Intermediate",
-      xp: 100,
-      icon: <Users className="h-5 w-5" />
+      time: "10 min",
+      description: "The three-part structure that professionals use"
     },
     { 
       id: 4, 
       title: "Show Output Format", 
       difficulty: "Intermediate",
-      xp: 100,
-      icon: <Award className="h-5 w-5" />
+      time: "8 min",
+      description: "Get consistent results by showing exactly what you want"
     },
     { 
       id: 5, 
       title: "Chain Tasks Step-by-Step", 
       difficulty: "Intermediate",
-      xp: 125,
-      icon: <Zap className="h-5 w-5" />
+      time: "12 min",
+      description: "Break complex requests into manageable sequences"
     },
     { 
       id: 6, 
       title: "Match Your Audience's Tone", 
       difficulty: "Advanced",
-      xp: 150,
-      icon: <Users className="h-5 w-5" />
+      time: "10 min",
+      description: "How your tone shapes AI responses"
     },
     { 
       id: 7, 
       title: "Use Positive Language", 
       difficulty: "Advanced",
-      xp: 150,
-      icon: <Trophy className="h-5 w-5" />
+      time: "8 min",
+      description: "Why positive instructions work better than restrictions"
     },
     { 
       id: 8, 
-      title: "Pro Tips & Power Moves", 
-      difficulty: "Expert",
-      xp: 200,
-      icon: <Zap className="h-5 w-5" />
+      title: "Context Window Management", 
+      difficulty: "Advanced",
+      time: "15 min",
+      description: "Maximize AI memory and maintain conversation flow"
     },
     { 
       id: 9, 
-      title: "The 4 Golden Rules", 
+      title: "Error Recovery Techniques", 
+      difficulty: "Advanced",
+      time: "12 min",
+      description: "What to do when AI misunderstands your request"
+    },
+    { 
+      id: 10, 
+      title: "Template and Pattern Libraries", 
+      difficulty: "Expert",
+      time: "20 min",
+      description: "Build reusable prompt templates for common tasks"
+    },
+    { 
+      id: 11, 
+      title: "Advanced Reasoning Techniques", 
+      difficulty: "Expert",
+      time: "25 min",
+      description: "Chain-of-thought, tree-of-thought, and reasoning frameworks"
+    },
+    { 
+      id: 12, 
+      title: "The Complete Mastery Guide", 
       difficulty: "Master",
-      xp: 250,
-      icon: <Trophy className="h-5 w-5" />
+      time: "30 min",
+      description: "Putting it all together with expert-level strategies"
     },
   ];
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Beginner': return 'bg-green-100 text-green-800 border-green-200';
-      case 'Intermediate': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'Advanced': return 'bg-purple-100 text-purple-800 border-purple-200';
-      case 'Expert': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'Master': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'Beginner': return 'bg-green-100 text-green-700';
+      case 'Intermediate': return 'bg-blue-100 text-blue-700';
+      case 'Advanced': return 'bg-purple-100 text-purple-700';
+      case 'Expert': return 'bg-orange-100 text-orange-700';
+      case 'Master': return 'bg-red-100 text-red-700';
+      default: return 'bg-gray-100 text-gray-700';
     }
   };
 
-  const totalXP = promptTechniques.reduce((sum, technique) => sum + technique.xp, 0);
-
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+    <div className="min-h-screen bg-white">
       <Header />
       
-      <main className="flex-1 pt-20">
+      <main>
         <Hero />
         
-        {/* Stats Section */}
-        <div className="bg-white/80 backdrop-blur-sm py-12 border-y border-blue-100">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-              <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
-                <div className="text-2xl font-bold text-blue-600">{promptTechniques.length}</div>
-                <div className="text-sm text-blue-700">Techniques</div>
-              </div>
-              <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200">
-                <div className="text-2xl font-bold text-purple-600">{totalXP}</div>
-                <div className="text-sm text-purple-700">Total XP</div>
-              </div>
-              <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200">
-                <div className="text-2xl font-bold text-green-600">5</div>
-                <div className="text-sm text-green-700">Difficulty Levels</div>
-              </div>
-              <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200">
-                <div className="text-2xl font-bold text-orange-600">100+</div>
-                <div className="text-sm text-orange-700">Examples</div>
-              </div>
+        {/* Learning Path */}
+        <div className="py-16 px-6">
+          <div className="container mx-auto max-w-4xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                Your Learning Path
+              </h2>
+              <p className="text-lg text-gray-600">
+                Master prompt engineering through our structured curriculum
+              </p>
             </div>
-          </div>
-        </div>
-        
-        {/* Learning Path Section */}
-        <div className="container mx-auto px-4 max-w-6xl py-20">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent">
-              Your Learning Journey
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Master prompt engineering through our gamified learning path. Earn XP, unlock achievements, and become an AI communication expert!
-            </p>
-          </div>
 
-          <div className="grid gap-6 md:gap-8">
-            {promptTechniques.map((technique, index) => (
-              <Link 
-                to={`/prompts/${technique.id}`} 
-                key={technique.id}
-                className="group relative"
-              >
-                <div className="p-6 md:p-8 rounded-2xl bg-white/80 backdrop-blur-sm shadow-lg border border-gray-200/50 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 hover:border-blue-300/50">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-6">
-                      {/* Progress Indicator */}
-                      <div className="flex flex-col items-center">
-                        <div className="h-12 w-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                          {technique.id}
-                        </div>
-                        {index < promptTechniques.length - 1 && (
-                          <div className="w-0.5 h-8 bg-gradient-to-b from-blue-300 to-purple-300 mt-4"></div>
-                        )}
-                      </div>
-                      
-                      {/* Content */}
+            <div className="space-y-4">
+              {promptTechniques.map((technique, index) => (
+                <Link 
+                  to={`/prompts/${technique.id}`} 
+                  key={technique.id}
+                  className="block group"
+                >
+                  <div className="minimal-card p-6 group-hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <span className="text-blue-600">{technique.icon}</span>
-                          <h3 className="text-xl md:text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
-                            {technique.title}
-                          </h3>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getDifficultyColor(technique.difficulty)}`}>
+                          <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-sm font-medium text-gray-700">
+                            {technique.id}
+                          </div>
+                          <span className={`px-2 py-1 rounded text-xs font-medium ${getDifficultyColor(technique.difficulty)}`}>
                             {technique.difficulty}
                           </span>
-                          <div className="flex items-center gap-2 text-amber-600">
-                            <Award className="h-4 w-4" />
-                            <span className="font-semibold">{technique.xp} XP</span>
+                          <div className="flex items-center gap-1 text-gray-500 text-sm">
+                            <Clock className="h-3 w-3" />
+                            {technique.time}
                           </div>
                         </div>
+                        
+                        <h3 className="text-lg font-semibold text-gray-900 mb-1 group-hover:text-gray-700 transition-colors">
+                          {technique.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm">
+                          {technique.description}
+                        </p>
                       </div>
-                    </div>
-                    
-                    {/* Arrow */}
-                    <div className="text-blue-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all">
-                      <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
+                      
+                      <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all" />
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                </Link>
+              ))}
+            </div>
 
-          {/* Call to Action */}
-          <div className="mt-16 text-center">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-8 rounded-2xl text-white shadow-2xl">
-              <h3 className="text-2xl font-bold mb-4">Ready to Begin Your Journey?</h3>
-              <p className="text-blue-100 mb-6 max-w-2xl mx-auto">
-                Start with the basics and work your way up to master-level techniques. Each lesson builds on the previous one!
-              </p>
-              <Link 
-                to="/prompts/1"
-                className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-xl font-semibold hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl"
-              >
-                <Trophy className="h-5 w-5" />
-                Start Learning Now
-              </Link>
+            {/* CTA Section */}
+            <div className="mt-16 text-center">
+              <div className="bg-gray-50 p-8 rounded-xl">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Ready to Master AI Communication?
+                </h3>
+                <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+                  Join thousands of learners who've improved their AI interactions through structured learning.
+                </p>
+                <Link 
+                  to="/prompts/1"
+                  className="minimal-button-primary px-8 py-3"
+                >
+                  Start Your Journey
+                </Link>
+              </div>
             </div>
           </div>
         </div>
