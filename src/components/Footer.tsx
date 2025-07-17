@@ -41,7 +41,7 @@ const Footer = () => {
           
           <div className="border-t border-gray-800 pt-6">
             <p className="text-gray-500 text-xs sm:text-sm">
-              Built for the Community with ❤️ by Futurelab Studios | © 2025 All rights reserved
+              Built for the Community with ❤️ by <a href="https://futurelabstudios.com/" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 transition-colors">Futurelab Studios</a> | © 2025 All rights reserved
             </p>
           </div>
         </div>
