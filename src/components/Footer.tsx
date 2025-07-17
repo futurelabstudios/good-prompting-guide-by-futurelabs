@@ -41,7 +41,7 @@ const Footer = () => {
           
           <div className="border-t border-gray-800 pt-6">
             <p className="text-gray-500 text-xs sm:text-sm">
-              © 2024 Prompt Mastery Guide. Built with ❤️ for better AI interactions.
+              Built for the Community with ❤️ by Futurelab Studios | © 2025 All rights reserved
             </p>
           </div>
         </div>
